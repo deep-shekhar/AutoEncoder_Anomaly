@@ -1,6 +1,6 @@
 from keras.datasets import mnist, fashion_mnist
 from models import load_model
-from keras.optimizers import Adam, SGD, Adagrad
+from keras.optimizers import Adam, SGD, Adagrad, Adamax
 import numpy as np
 import os
 import argparse
@@ -98,7 +98,7 @@ def main(args):
         # compile model
         #model.compile(optimizer=Adam(lr=0.0008, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0), loss=args.loss)
         #model.compile(optimizer=SGD(lr=0.06, momentum=0.0, decay=0.0, nesterov=False), loss=args.loss)
-        model.compile(optimizer=Adagrad(lr=0.001, epsilon=1e-08, decay=0.0), loss=args.loss)
+        model.compile(optimizer=Adamax(lr=0.0008, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0), loss=args.loss)
 
         # train on only normal training data
         model.fit(
