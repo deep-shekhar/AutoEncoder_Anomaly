@@ -25,16 +25,16 @@ def convolutional_autoencoder():
     input_shape=(200,200,1)
     n_channels = input_shape[-1]
     model = Sequential()
-    model.add(Conv2D(32, (5,5), activation='relu', padding='same', input_shape=input_shape))
+    model.add(Conv2D(64, (3,3), activation='relu', padding='same', input_shape=input_shape))
     model.add(MaxPool2D(padding='same'))
-    model.add(Conv2D(16, (5,5), activation='relu', padding='same'))
+    model.add(Conv2D(32, (3,3), activation='relu', padding='same'))
     model.add(MaxPool2D(padding='same'))
-    model.add(Conv2D(8, (5,5), activation='relu', padding='same'))
+    model.add(Conv2D(16, (3,3), activation='relu', padding='same'))
     model.add(UpSampling2D())
-    model.add(Conv2D(16, (5,5), activation='relu', padding='same'))
+    model.add(Conv2D(32, (3,3), activation='relu', padding='same'))
     model.add(UpSampling2D())
-    model.add(Conv2D(32, (5,5), activation='relu', padding='same'))
-    model.add(Conv2D(n_channels, (5,5), activation='sigmoid', padding='same'))
+    model.add(Conv2D(64, (3,3), activation='relu', padding='same'))
+    model.add(Conv2D(n_channels, (3,3), activation='sigmoid', padding='same'))
     return model
 
 def load_model(name):
