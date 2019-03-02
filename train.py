@@ -1,5 +1,6 @@
 from keras.datasets import mnist, fashion_mnist
 from models import load_model
+from keras.optimizers import Adam, SGD, Adagrad
 import numpy as np
 import os
 import argparse
@@ -49,6 +50,8 @@ def main(args):
         x_train.append(tmp_img)
     x_train = np.array(x_train)
     print(x_train.shape)
+    x_train = x_train.astype(float)
+    x_train = x_train / 255.
     
     test_imgs = get_latest_image('./Test_Real/')
     for img_file in test_imgs:
@@ -56,6 +59,8 @@ def main(args):
         x_test.append(tmp_img)
     x_test = np.array(x_test)
     print(x_test.shape)
+    x_test = x_test.astype(float)
+    x_test = x_test / 255.
 
     anom_imgs = get_latest_image('./Test_Unreal/')
     for img_file in anom_imgs:
@@ -63,6 +68,8 @@ def main(args):
         x_abnormal.append(tmp_img)
     x_abnormal = np.array(x_abnormal)
     print(x_abnormal.shape)
+    x_abnormal = x_abnormal.astype(float)
+    x_abnormal = x_abnormal / 255.
 
     #sys.exit()
     # sample args.test_samples images from eaech of x_test and x_abnormal
@@ -89,7 +96,7 @@ def main(args):
             raise ValueError('Unknown model_name %s was given' % model_name)
 
         # compile model
-        model.compile(optimizer=args.optimizer, loss=args.loss)
+        model.compile(optimizer=Adam(lr=0.0002, beta_1=0.7, beta_2=0.999, epsilon=1e-08, decay=0.0), loss=args.loss)
 
         # train on only normal training data
         model.fit(

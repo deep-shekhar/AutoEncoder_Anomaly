@@ -9,7 +9,7 @@ for file_name in os.listdir(directory):
   image = Image.open(os.path.join(directory, file_name))
 
   x,y = image.size
-  new_dimensions = (200, 200)
+  new_dimensions = (120, 120)
   output = image.resize(new_dimensions, Image.ANTIALIAS)
 
   output_file_name = os.path.join(directory, file_name)
