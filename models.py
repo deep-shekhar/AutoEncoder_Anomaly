@@ -4,7 +4,7 @@ from keras.layers import Dense, Conv2D, MaxPool2D, UpSampling2D
 def autoencoder():
     input_shape=(40000,)
     model = Sequential()
-    model.add(Dense(4500, activation='relu', input_shape=input_shape))
+    model.add(Dense(4000, activation='relu', input_shape=input_shape))
     model.add(Dense(40000, activation='sigmoid'))
     return model
 
@@ -30,8 +30,8 @@ def convolutional_autoencoder():
     model.add(UpSampling2D())
     model.add(Conv2D(16, (5,5), activation='relu', padding='same'))
     model.add(UpSampling2D())
-    model.add(Conv2D(32, (3,3), activation='relu', padding='same'))
-    model.add(Conv2D(n_channels, (5,5), activation='sigmoid', padding='same'))
+    model.add(Conv2D(32, (5,5), activation='relu', padding='same'))
+    model.add(Conv2D(n_channels, (3,3), activation='sigmoid', padding='same'))
     return model
 
 def load_model(name):
