@@ -13,7 +13,7 @@ from PIL import Image
 curdir = os.path.dirname(os.path.abspath(__file__))
 parser = argparse.ArgumentParser()
 parser.add_argument('--optimizer', choices=['adam','sgd','adagrad'], default='adam')
-parser.add_argument('--loss', choices=['mean_squared_error', 'binary_crossentropy'], default='binary_crossentropy')
+parser.add_argument('--loss', choices=['mean_squared_error', 'binary_crossentropy'], default='mean_squared_error')
 parser.add_argument('--epochs', type=int, default=50)
 parser.add_argument('--batch_size', type=int, default=6)
 parser.add_argument('--test_samples', type=int, default=40)
