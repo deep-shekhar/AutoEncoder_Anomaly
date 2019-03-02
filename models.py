@@ -2,7 +2,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Conv2D, MaxPool2D, UpSampling2D
 
 def autoencoder():
-    input_shape=(10000,)
+    input_shape=(40000,)
     model = Sequential()
     model.add(Dense(4000, activation='relu', input_shape=input_shape))
     model.add(Dense(10000, activation='sigmoid'))
@@ -19,7 +19,7 @@ def deep_autoencoder():
 
 def convolutional_autoencoder():
 
-    input_shape=(100,100,1)
+    input_shape=(200,200,1)
     n_channels = input_shape[-1]
     model = Sequential()
     model.add(Conv2D(32, (5,5), activation='relu', padding='same', input_shape=input_shape))
