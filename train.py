@@ -43,21 +43,21 @@ def main(args):
     x_test = []
     x_abnormal = []
 
-    train_imgs = get_latest_image('/home/deep/Desktop/AnomalyDetectionUsingAutoencoder/dataset/')
+    train_imgs = get_latest_image('./dataset/')
     for img_file in train_imgs:
         tmp_img = np.asarray(Image.open(img_file))
         x_train.append(tmp_img)
     x_train = np.array(x_train)
     print(x_train.shape)
     
-    test_imgs = get_latest_image('/home/deep/Desktop/AnomalyDetectionUsingAutoencoder/Test_Real/')
+    test_imgs = get_latest_image('./Test_Real/')
     for img_file in test_imgs:
         tmp_img = np.asarray(Image.open(img_file))
         x_test.append(tmp_img)
     x_test = np.array(x_test)
     print(x_test.shape)
 
-    anom_imgs = get_latest_image('/home/deep/Desktop/AnomalyDetectionUsingAutoencoder/Test_Unreal/')
+    anom_imgs = get_latest_image('./Test_Unreal/')
     for img_file in anom_imgs:
         tmp_img = np.asarray(Image.open(img_file))
         x_abnormal.append(tmp_img)
