@@ -5,7 +5,7 @@ def autoencoder():
     input_shape=(40000,)
     model = Sequential()
     model.add(Dense(4000, activation='relu', input_shape=input_shape))
-    model.add(Dense(10000, activation='sigmoid'))
+    model.add(Dense(40000, activation='sigmoid'))
     return model
 
 def deep_autoencoder():
