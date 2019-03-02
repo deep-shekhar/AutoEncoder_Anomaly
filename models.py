@@ -5,10 +5,9 @@ from keras.layers import Dense, Conv2D, MaxPool2D, UpSampling2D
 def autoencoder():
     input_shape=(40000,)
     model = Sequential()
-    model.add(Dense(2000, activation='linear', input_shape=input_shape))
-    model.add(LeakyReLU(alpha=.1))
-    model.add(Dense(2000, activation='linear'))
-    model.add(LeakyReLU(alpha=.01))
+    model.add(Dense(2000, activation='relu', input_shape=input_shape))
+    model.add(Dense(2000, activation='relu'))
+    #model.add(LeakyReLU(alpha=.01))
     model.add(Dense(40000, activation='sigmoid'))
     return model
 
