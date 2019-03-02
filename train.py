@@ -71,20 +71,20 @@ def main(args):
     x_abnormal = x_abnormal[perm][:args.test_samples]
 
     # train each model and test their capabilities of anomaly deteciton
-    model_names = ['autoencoder', 'deep_autoencoder', 'convolutional_autoencoder']
+    model_names = ['autoencoder', 'convolutional_autoencoder']
     for model_name in model_names:
         # instantiate model
         model = load_model(model_name)
         print("Training Model = {}".format(model_name))
         # reshape input data according to the model's input tensor
         if model_name == 'convolutional_autoencoder':
-            x_train = x_train.reshape(-1,200,200,1)
-            x_test = x_test.reshape(-1,200,200,1)
-            x_abnormal = x_abnormal.reshape(-1,200,200,1)
+            x_train = x_train.reshape(-1,100,100,1)
+            x_test = x_test.reshape(-1,100,100,1)
+            x_abnormal = x_abnormal.reshape(-1,100,100,1)
         elif model_name == 'autoencoder' or model_name == 'deep_autoencoder':
-            x_train = x_train.reshape(-1,200*200)
-            x_test = x_test.reshape(-1,200*200)
-            x_abnormal = x_abnormal.reshape(-1,200*200)
+            x_train = x_train.reshape(-1,100*100)
+            x_test = x_test.reshape(-1,100*100)
+            x_abnormal = x_abnormal.reshape(-1,100*100)
         else:
             raise ValueError('Unknown model_name %s was given' % model_name)
 
