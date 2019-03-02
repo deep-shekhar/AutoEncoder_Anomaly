@@ -1,6 +1,6 @@
 from keras.models import Sequential
 from keras.layers.advanced_activations import LeakyReLU
-from keras.layers import Dense, Conv2D, MaxPool2D, UpSampling2D
+from keras.layers import Dense, Conv2D, MaxPool2D, UpSampling2D, Dropout
 
 def autoencoder():
     input_shape=(40000,)
@@ -27,11 +27,14 @@ def convolutional_autoencoder():
     model = Sequential()
     model.add(Conv2D(64, (3,3), activation='relu', padding='same', input_shape=input_shape))
     model.add(MaxPool2D(padding='same'))
-    model.add(Conv2D(32, (3,3), activation='relu', padding='same'))
+    model.add(Conv2D(128, (3,3), activation='relu', padding='same'))
+    model.add(Dropout(0.2))
     model.add(MaxPool2D(padding='same'))
-    model.add(Conv2D(16, (3,3), activation='relu', padding='same'))
+    model.add(Conv2D(256, (3,3), activation='relu', padding='same'))
+    model.add(Dropout(0.2))
     model.add(UpSampling2D())
-    model.add(Conv2D(32, (3,3), activation='relu', padding='same'))
+    model.add(Conv2D(128, (3,3), activation='relu', padding='same'))
+    model.add(Dropout(0.2))
     model.add(UpSampling2D())
     model.add(Conv2D(64, (3,3), activation='relu', padding='same'))
     model.add(Conv2D(n_channels, (3,3), activation='sigmoid', padding='same'))
