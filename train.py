@@ -10,6 +10,9 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import math
 from PIL import Image
+from scipy import ndimage, misc
+import scipy.misc
+from skimage.util import random_noise
 
 curdir = os.path.dirname(os.path.abspath(__file__))
 parser = argparse.ArgumentParser()
@@ -29,6 +32,13 @@ def get_latest_image(dirpath, valid_extensions=('jpg','jpeg','png')):
     return new_files
 
 
+def read_image(s_image_path):
+    tmp_image = scipy.misc.imread(s_image_path)/127.5 -1.
+    sigma = 0.12
+    noisy = random_noise(tmp_image, var=sigma ** 2)
+    #image = scipy.misc.imresize(tmp_image, (50,50))
+    return np.array(tmp_image)
+
 def main(args):
 
     '''# prepare normal dataset (Mnist)
@@ -46,30 +56,33 @@ def main(args):
 
     train_imgs = get_latest_image('./dataset/')
     for img_file in train_imgs:
-        tmp_img = np.asarray(Image.open(img_file))
+        #tmp_img = np.asarray(Image.open(img_file))
+        tmp_img = read_image(img_file)
         x_train.append(tmp_img)
     x_train = np.array(x_train)
     print(x_train.shape)
     x_train = x_train.astype(float)
-    x_train = x_train / 255.
+    #x_train = x_train / 255.
     
     test_imgs = get_latest_image('./Test_Real/')
     for img_file in test_imgs:
-        tmp_img = np.asarray(Image.open(img_file))
+        #tmp_img = np.asarray(Image.open(img_file))
+        tmp_img = read_image(img_file)
         x_test.append(tmp_img)
     x_test = np.array(x_test)
     print(x_test.shape)
     x_test = x_test.astype(float)
-    x_test = x_test / 255.
+    #x_test = x_test / 255.
 
     anom_imgs = get_latest_image('./Test_Unreal/')
     for img_file in anom_imgs:
-        tmp_img = np.asarray(Image.open(img_file))
+        #tmp_img = np.asarray(Image.open(img_file))
+        tmp_img = read_image(img_file)
         x_abnormal.append(tmp_img)
     x_abnormal = np.array(x_abnormal)
     print(x_abnormal.shape)
     x_abnormal = x_abnormal.astype(float)
-    x_abnormal = x_abnormal / 255.
+    #x_abnormal = x_abnormal / 255.
 
     #sys.exit()
     # sample args.test_samples images from eaech of x_test and x_abnormal
