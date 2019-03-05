@@ -34,7 +34,7 @@ def get_latest_image(dirpath, valid_extensions=('jpg','jpeg','png')):
 
 def read_image(s_image_path):
     tmp_image = scipy.misc.imread(s_image_path)/127.5 -1.
-    sigma = 0.12
+    sigma = 0.15
     noisy = random_noise(tmp_image, var=sigma ** 2)
     #image = scipy.misc.imresize(tmp_image, (50,50))
     return np.array(tmp_image)
@@ -109,8 +109,8 @@ def main(args):
             raise ValueError('Unknown model_name %s was given' % model_name)
 
         # compile model
-        model.compile(optimizer=Adam(lr=0.0008, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0), loss=args.loss)
-        #model.compile(optimizer=SGD(lr=0.06, momentum=0.0, decay=0.0, nesterov=False), loss=args.loss)
+        #model.compile(optimizer=Adam(lr=0.0008, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0), loss=args.loss)
+        model.compile(optimizer=SGD(lr=0.06, momentum=0.0, decay=0.0, nesterov=False), loss=args.loss)
         #model.compile(optimizer=Adamax(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0), loss=args.loss)
 
         # train on only normal training data
