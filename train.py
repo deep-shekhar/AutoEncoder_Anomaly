@@ -17,7 +17,7 @@ from skimage.util import random_noise
 curdir = os.path.dirname(os.path.abspath(__file__))
 parser = argparse.ArgumentParser()
 parser.add_argument('--optimizer', choices=['adam','sgd','adagrad'], default='adam')
-parser.add_argument('--loss', choices=['mean_squared_error', 'binary_crossentropy'], default='binary_crossentropy')
+parser.add_argument('--loss', choices=['mean_squared_error', 'binary_crossentropy'], default='mean_squared_error')
 parser.add_argument('--epochs', type=int, default=50)
 parser.add_argument('--batch_size', type=int, default=6)
 parser.add_argument('--test_samples', type=int, default=40)
@@ -109,8 +109,8 @@ def main(args):
             raise ValueError('Unknown model_name %s was given' % model_name)
 
         # compile model
-        #model.compile(optimizer=Adam(lr=0.0008, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0), loss=args.loss)
-        model.compile(optimizer=SGD(lr=0.06, momentum=0.0, decay=0.0, nesterov=False), loss=args.loss)
+        model.compile(optimizer=Adam(lr=0.0008, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0), loss=args.loss)
+        #model.compile(optimizer=SGD(lr=0.06, momentum=0.0, decay=0.0, nesterov=False), loss=args.loss)
         #model.compile(optimizer=Adamax(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0), loss=args.loss)
 
         # train on only normal training data
@@ -128,7 +128,7 @@ def main(args):
             # compule loss for each test sample
             x = np.expand_dims(x, axis=0)
             loss = model.test_on_batch(x, x)
-            losses.append(loss*-1 + 1.0)
+            losses.append(loss)
 
         # plot
         plt.plot(range(len(losses)), losses, linestyle='-', linewidth=1, label=model_name)
